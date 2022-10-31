@@ -1,2 +1,16 @@
-﻿<h2>Welcome @ViewBag.login</h2>
+﻿@model Customer
+<h2>Welcome @Model.name </h2>
+<h3>Personal Info</h3>
+<table class="table">
+    <tr>
+        <th>User ID</th>
+        <th>Name</th>
+    </tr>
+    <tr>
+        <td>@Model.userid</td>
+        <td>@Model.name</td>
+    </tr>
+    </table>
+
+
 <a asp-controller="customer" asp-action="logout">Logout</a>

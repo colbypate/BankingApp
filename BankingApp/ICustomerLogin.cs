@@ -1,9 +1,9 @@
-﻿using BankingApp.Models;
+﻿//using BankingApp.Models;
 
-namespace BankingApp
-{
-    public interface ICustomerLogin
-    {
-        public Customer Login(string login, string password);
-    }
-}
+//namespace BankingApp
+//{
+//    public interface ICustomerLogin
+//    {
+//        public Customer Login(string login, string password);
+//    }
+//}

@@ -1,10 +1,22 @@
 using BankingApp;
+using BankingApp.Repository;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ICustomerLogin, CustomerLoginImpl>();
+//builder.Services.AddScoped<ICustomerLogin, CustomerLoginImpl>();
+builder.Services.AddScoped<IDbConnection>((s) =>
+{
+    IDbConnection conn = new MySqlConnection(builder.Configuration.GetConnectionString("banking"));
+    conn.Open();
+    return conn;
+
+});
+
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 
 var app = builder.Build();
 
