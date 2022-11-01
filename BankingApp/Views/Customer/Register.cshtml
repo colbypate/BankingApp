@@ -1,0 +1,29 @@
+﻿@model Customer
+
+<h2>Register </h2>
+
+@using (Html.BeginForm("RegisterCustomerToDatabase", "Customer", "Post"))
+{
+    <input asp-for="userid" type="hidden" value="" />
+
+    <label asp-for="name" class="control-label">FullName</label>
+
+    <input type="text" name="name" class="form-control" value="" />
+
+    <label asp-for="phonenumber" class="control-label">PhoneNumber</label>
+    <input type="text" name="phonenumber" class="form-control" value="" />
+
+    <label asp-for="emailaddress" class="control-label">EmailAddress</label>
+    <input type="text" name="emailaddress" class="form-control" value="" />
+
+
+    <label asp-for="login" class="control-label">Login</label>
+    <input type="text" name="login" class="form-control" value="" />
+
+    <label asp-for="password" class="control-label">Password</label>
+    <input type="text" name="password" class="form-control" value="" />
+
+    <input type="submit" value="Register" class="btn btn-primary" />
+
+
+}

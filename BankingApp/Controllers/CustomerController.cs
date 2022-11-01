@@ -1,57 +1,11 @@
-﻿using BankingApp.Repository;
+﻿using BankingApp.Models;
+using BankingApp.Repository;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
+using System.Drawing;
 
 namespace BankingApp.Controllers
 {
-//    [Route("_customers")]
-//    public class CustomerController : Controller
-//    {
-//        private ICustomerLogin customerLogin;
-//        public CustomerController(ICustomerLogin _customerLogin)
-//        {
-//            this.customerLogin = _customerLogin;
-//        }
-
-//        [Route("")]
-//        [Route("~/")]
-//        [Route("index")]
-
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
-
-//        [HttpPost]
-//        [Route("Login")]
-//        public IActionResult Login(string login, string password)
-//        {
-//            var customer = customerLogin.Login(login, password);
-//            if (customer != null)
-//            {
-//                HttpContext.Session.SetString("login", login);
-//                return RedirectToAction("Welcome");
-//            }
-//            else
-//            {
-//                ViewBag.msg = "Invalid";
-//                return View("Index");
-//            }
-//        }
-//        [Route("welcome")]
-//        public IActionResult Welcome()
-//        {
-//            ViewBag.login = HttpContext.Session.GetString("login");
-//            return View("Welcome");
-//        }
-
-//        [Route("logout")]
-//        public IActionResult Logout()
-//        {
-//            HttpContext.Session.Remove("login");
-//            return RedirectToAction("index");
-//        }
-//    }
-
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository repo;
@@ -59,15 +13,35 @@ namespace BankingApp.Controllers
         {
             this.repo = repo;
         }
+
         public IActionResult Index ()
         {
             return View();  
         }
         [HttpPost]
-        public async Task<IActionResult> Login()
+        public IActionResult Login(string login, string password)
         {
-            var customer = repo.GetCustomer(login, password);
+            var valid = repo.CustomerLogin(login, password);
+            if (valid == false)
+            {
+                return View("FailedSignIn");
+            }
+            ViewBag.customer = repo.GetCustomer(login, password);
+            return View(ViewBag.customer);
+        }
+        public IActionResult Logout()
+        {
+            return View();
+        }
+        public IActionResult Register(Customer customerToCreate)
+        {
+            var customer = repo.AddCustomer(customerToCreate);
             return View(customer);
+        }
+        public IActionResult RegisterCustomerToDatabase(Customer customerToCreate)
+        {
+            repo.CreateCustomer(customerToCreate);
+            return RedirectToAction("Index");
         }
     }
 

@@ -1,0 +1,20 @@
+﻿
+<h2>Account OverView</h2>
+<table class="table">
+    <tr>
+        <th>UserID</th>
+        <th>AccountID</th>
+        <th>Account Type</th>
+        <th>Balance</th>
+    </tr>
+    <tr>
+        <td>@ViewBag.account.userid</td>
+        <td>@ViewBag.account.accountid</td>
+        <th>@ViewBag.account.accounttype</th>
+        <th>@ViewBag.account.balance</th>
+
+    </tr>
+</table>
+
+
+<a asp-controller="customer" asp-action="logout">Logout</a>
