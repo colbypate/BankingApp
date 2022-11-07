@@ -11,13 +11,18 @@
     @foreach(var account in Model)
     {
         <tr>
-            <td><a href="/Account/Transfer">@account.accountid</a></td>
+            <td><form method="post" asp-controller="Account" asp-action="ChosenAccount"><input type="submit" value="@account.accountid" name="testing" /></form></td>
+            @{
+                _contextAccessor.HttpContext.Session.SetInt32("accountid", account.accountid);
+
+            }
+            @*<td><a href="/Account/Transfer/@account.accountid"> @account.accountid</a></td>*@
+            @*<td><a id="@account.accountid" asp-controller="account" asp-action="Transfer">@account.accountid</a></td>*@
             <td>@account.accounttype</td>
-            <td>@account.balance</td>
+            <td>$@account.balance</td>
 
         </tr>
     }
 </table>
-
 
 <a asp-controller="customer" asp-action="logout">Logout</a>
