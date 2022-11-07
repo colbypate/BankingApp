@@ -1,0 +1,19 @@
+﻿@model Customer
+
+<h2>Account Overview</h2>
+<table class="table">
+    <tr>
+        <th>AccountID</th>
+        <th>Account Type</th>
+        <th>Balance</th>
+    </tr>
+    <tr>
+        <td>@Model.userid</td>
+        <td>@Model.login</td>
+        <td>@Model.phonenumber</td>
+
+    </tr>
+</table>
+
+
+<a asp-controller="Customer" asp-action="logout">Logout</a>

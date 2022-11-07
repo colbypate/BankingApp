@@ -1,20 +1,12 @@
 ﻿
-<h2>Welcome @ViewBag.customer.name</h2>
-<h3>Personal Info</h3>
-<table class="table">
-    <tr>
-        <th>User ID</th>
-        <th>Name</th>
-        <th>Accounts</th>
-    </tr>
-    <tr>
-        <td>@ViewBag.customer.userid</td>
-        <td>@ViewBag.customer.name</td>
-        <td><a asp-controller="account" asp-action="overview">Account</a></td>
 
-
-    </tr>
-</table>
-
-
-<a asp-controller="customer" asp-action="logout">Logout</a>
+<h2>Login</h2>
+@ViewBag.msg
+<form method="post" asp-controller="Customer" asp-action="login">
+    Username : <input type="text" name="login" />
+    <br />
+    <br />
+    Password : <input type="password" name="password" />
+    <br />
+    <input type="submit" value="Login" />
+</form>

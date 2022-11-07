@@ -1,0 +1,23 @@
+﻿@inject IHttpContextAccessor _contextAccessor
+@model IEnumerable<Account>
+@*<h2>@_contextAccessor.HttpContext.Session.GetString("")</h2>
+*@<h3>Personal Info</h3>
+<table class="table">
+    <tr>
+        <th>Account ID</th>
+        <th>Account Type</th>
+        <th>Balance</th>
+    </tr>
+    @foreach(var account in Model)
+    {
+        <tr>
+            <td><a href="/Account/Transfer">@account.accountid</a></td>
+            <td>@account.accounttype</td>
+            <td>@account.balance</td>
+
+        </tr>
+    }
+</table>
+
+
+<a asp-controller="customer" asp-action="logout">Logout</a>

@@ -1,26 +1,24 @@
-﻿using BankingApp.Models;
+﻿using BankingApp.Controllers;
+using BankingApp.Models;
 using Dapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NuGet.Protocol;
+using NuGet.Protocol.Plugins;
+using System.Collections.Immutable;
 using System.Data;
+using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BankingApp.Repository
 {
-    public class CustomerRepository : ICustomerRepository, IAccountRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly IDbConnection _conn;
         public CustomerRepository(IDbConnection conn)
         {
             _conn = conn;
-        }
-
-        public Customer ChooseAccountType()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Account CreateAccount(Account account)
-        {
-            throw new NotImplementedException();
         }
 
         public void CreateCustomer(Customer customerToCreate)
@@ -45,32 +43,38 @@ namespace BankingApp.Repository
             return true;
         }
 
-        public int Deposit(int deposit)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Account GetAccount(int userid)
-        {
-            return _conn.QuerySingle<Account>("select * from account where userid = @userid",
-                new {userid = userid});
-        }
 
         public Customer GetCustomer(string login, string password)
         {
-            return _conn.QuerySingle<Customer>("select * from customer where login = @login and password = @password",
-                    new { login = login, password = password });
+            var customer = new Customer();
+            customer = _conn.QuerySingle<Customer>("select * from customer where login = @login and password = @password;",
+                    new { login, password });
+            return customer;
+            ////IF NOT WORK REPLACE WITH : SELECT * FROM customer inner JOIN account ON customer.userid = @userid and account.userid = @userid where login = @login and password = @password
+            //var account = _conn.Query<Customer>("SELECT * FROM customer inner JOIN account ON customer.userid = @userid and account.userid = @userid;",
+            //        new { userid = custID.userid});
+            //return account;
 
         }
+
+        //public Account GetAccount(Customer customer)
+        //{
+        //    Console.WriteLine(customer.userid);
+        //    Console.WriteLine(customer.name);
+        //   // var id = _conn.QuerySingle<Customer>("select userid from customer where login = @login and password = @password",
+        //     //   new { login = customer.login, password = customer.password });
+
+        //    var account = _conn.QuerySingle<Account>("select userid from customer where userid = @userid",
+        //        new { userid = customer.userid });
+        //    return account;
+        //}
 
         public void UpdateCustomer(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public int Withdraw(int withdraw)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

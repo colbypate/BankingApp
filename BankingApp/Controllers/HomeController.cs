@@ -1,21 +1,39 @@
 ﻿using BankingApp.Models;
+using BankingApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Permissions;
 
 namespace BankingApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Dashboard(Customer customer)
+        {
+            _contextAccessor.HttpContext.Session.SetInt32("userid", customer.userid);
+
+
+            return View(customer);
+        }
+        public IActionResult LoadAccounts()
+        {
+            var id = _contextAccessor.HttpContext.Session.GetInt32("userid");
+            Console.WriteLine($"This is the first id: {id}");
+            return RedirectToAction("ViewAccounts", "Account", new {@id = id});
+
         }
 
         public IActionResult Privacy()

@@ -1,5 +1,8 @@
-﻿using BankingApp.Repository;
+﻿using BankingApp.Models;
+using BankingApp.Repository;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace BankingApp.Controllers
 {
@@ -10,10 +13,16 @@ namespace BankingApp.Controllers
         {
             this.repo = repo;
         }
-        public IActionResult Overview(int userid)
+        public IActionResult Deposit()
         {
-            ViewBag.account = repo.GetAccount(userid);
+            
             return View();
+        }
+        public IActionResult ViewAccounts(int id)
+        {
+            Console.WriteLine($"This is the userid: {id}");
+            var accounts = repo.GetAccount(id);
+            return View(accounts);
         }
     }
 }

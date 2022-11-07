@@ -4,10 +4,23 @@ using MySql.Data.MySqlClient;
 using System.Data;
 
 
+//allows my session variables to be used
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//allows my session variables to be used
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    //options.Cookie.HttpOnly = true;
+    //options.Cookie.IsEssential = true;
+});
+
+
+
 //builder.Services.AddScoped<ICustomerLogin, CustomerLoginImpl>();
 builder.Services.AddScoped<IDbConnection>((s) =>
 {
@@ -18,6 +31,8 @@ builder.Services.AddScoped<IDbConnection>((s) =>
 });
 
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+
 
 var app = builder.Build();
 
@@ -29,6 +44,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
