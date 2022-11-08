@@ -13,7 +13,7 @@
         <tr>
             <td><form method="post" asp-controller="Account" asp-action="ChosenAccount"><input type="submit" value="@account.accountid" name="testing" /></form></td>
             @{
-                _contextAccessor.HttpContext.Session.SetInt32("accountid", account.accountid);
+                //_contextAccessor.HttpContext.Session.SetInt32("accountid", account.accountid);
 
             }
             @*<td><a href="/Account/Transfer/@account.accountid"> @account.accountid</a></td>*@

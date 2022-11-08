@@ -27,10 +27,10 @@ namespace BankingApp.Repository
             throw new NotImplementedException();
         }
 
-        public void Deposit(int deposit, int accountid)
+        public void Deposit(int amount, int testing)
         {
-            var dep = _conn.QuerySingle<Account>("UPDATE account SET balance = balance + deposit WHERE accountid = @accountid;",
-                new {deposit = deposit, accountid});
+            _conn.Execute("UPDATE account SET balance = balance + @amount WHERE accountid = @accountid;",
+                new { amount = amount, accountid = testing });
         }
 
         public IEnumerable<Account> GetAccount(int userid)

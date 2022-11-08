@@ -1,6 +1,5 @@
 ﻿@inject IHttpContextAccessor _contextAccessor
-@*<h2>@_contextAccessor.HttpContext.Session.GetString("")</h2>
-*@<h3>Make a Transfer</h3>
+<h3>Make a Transfer</h3>
 @model Account
 <table class="table">
     <tr>
@@ -13,7 +12,11 @@
 
     <tr>
         <form method="post" asp-controller="Account" asp-action="Transaction">
-            <td>@Model.accountid</td>
+            @{
+                var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
+
+            }
+            <td>@accID</td>
             <td>@Model.accounttype</td>
             <td><input type="radio" id="deposit" name="transactionType" value="Deposit" /><label for="deposit">Deposit</label><br />
                     <input type="radio" id="withdraw" name="transactionType" value="Withdraw" /><label for="withdraw">Withdraw</label>

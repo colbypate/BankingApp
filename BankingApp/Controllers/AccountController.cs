@@ -28,6 +28,7 @@ namespace BankingApp.Controllers
             //Console.WriteLine(acc);
             var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
             var acc = repo.GetAccountByID((int)accID);
+
             Console.WriteLine(acc.balance);
             return View(acc);
 
@@ -35,12 +36,17 @@ namespace BankingApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Transaction(string transferType, int amount, int accountid)
+        public IActionResult Transaction(string transferType, int transactionAmount)
         {
-            if(transferType == "deposit")
+            Console.WriteLine(transferType);
+            if(transferType != "deposit")
             {
-                repo.Deposit(amount, accountid);
-                return View();
+                var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
+                repo.Deposit(transactionAmount, (int)accID);
+                var acc = repo.GetAccountByID((int)accID);
+                Console.WriteLine(accID);
+                Console.WriteLine(acc);
+                return View(acc);
             }
             return View();
 
