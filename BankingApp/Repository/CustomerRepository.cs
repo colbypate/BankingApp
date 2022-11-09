@@ -51,30 +51,16 @@ namespace BankingApp.Repository
             customer = _conn.QuerySingle<Customer>("select * from customer where login = @login and password = @password;",
                     new { login, password });
             return customer;
-            ////IF NOT WORK REPLACE WITH : SELECT * FROM customer inner JOIN account ON customer.userid = @userid and account.userid = @userid where login = @login and password = @password
-            //var account = _conn.Query<Customer>("SELECT * FROM customer inner JOIN account ON customer.userid = @userid and account.userid = @userid;",
-            //        new { userid = custID.userid});
-            //return account;
-
         }
 
-        //public Account GetAccount(Customer customer)
-        //{
-        //    Console.WriteLine(customer.userid);
-        //    Console.WriteLine(customer.name);
-        //   // var id = _conn.QuerySingle<Customer>("select userid from customer where login = @login and password = @password",
-        //     //   new { login = customer.login, password = customer.password });
 
-        //    var account = _conn.QuerySingle<Account>("select userid from customer where userid = @userid",
-        //        new { userid = customer.userid });
-        //    return account;
-        //}
-
-        public void UpdateCustomer(Customer customer)
+        public void UpdateCustomer(Customer newCustomer)
         {
-            throw new NotImplementedException();
+            
+            _conn.Execute("update customer set name = @name, phonenumber = @phonenumber, emailaddress = @emailaddress, login = @login, password = @password where userid = @id;",
+                new { name = newCustomer.name, phonenumber = newCustomer.phonenumber, emailaddress = newCustomer.emailaddress, login = newCustomer.login, password = newCustomer.password, id = newCustomer.userid });
         }
 
-
+        
     }
 }

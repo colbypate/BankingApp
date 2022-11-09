@@ -1,10 +1,7 @@
 ﻿@model Account
 <h2>Make Transaction</h2>
 @ViewBag.msg
-@*@foreach(var customer in Model)
-{
-    var account = account.accounttype;
-}*@
+
 <form method="post" asp-controller="Customer" asp-action="deposit">
     Deposit : <input type="number" name="deposit" />
     <br />

@@ -1,6 +1,10 @@
 ﻿@inject IHttpContextAccessor _contextAccessor
 <h3>Make a Transfer</h3>
 @model Account
+@{
+    var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
+
+}
 <table class="table">
     <tr>
         <th>Account ID</th>
@@ -12,24 +16,22 @@
 
     <tr>
         <form method="post" asp-controller="Account" asp-action="Transaction">
-            @{
-                var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
 
-            }
             <td>@accID</td>
             <td>@Model.accounttype</td>
-            <td><input type="radio" id="deposit" name="transactionType" value="Deposit" /><label for="deposit">Deposit</label><br />
-                    <input type="radio" id="withdraw" name="transactionType" value="Withdraw" /><label for="withdraw">Withdraw</label>
+        <td>
+            <label for="transactionType"> <input type="radio" id="deposit" name="transactionType" value="deposit" />Deposit</label><br />
+            <label for="transactionType"> <input type="radio" id="withdraw" name="transactionType" value="withdraw" />Withdraw</label>
             </td>
             <td>$@Model.balance</td>
             <td>
             
-                <input type="text" id="amount" name="transactionAmount" />     <input type="submit" value="Transfer" />
+                <input type="text" id="amount" name="transactionAmount" />     <input type="submit"  value="Transfer" />
             
             </td>
         </form>
 
-
+        
     </tr>
 </table>
 

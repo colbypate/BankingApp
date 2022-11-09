@@ -1,0 +1,36 @@
+﻿@inject IHttpContextAccessor _contextAccessor
+
+@* Not used but this is how you would use session variables*@
+@model Customer
+<h2>My Banking Hub</h2>
+<h3>Personal Info</h3>
+<br />
+@if (TempData["Alert"] != null)
+{
+    <div class="alert aler-success">
+        <strong>Success!</strong>@TempData["Alert"]
+    </div>
+}
+<br />
+<form method="post" asp-controller="customer" asp-action="UpdateCustomer"><button>Update Customer Info</button></form>
+<table class="table">
+    
+    <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Accounts</th>
+    </tr>
+    <tr>
+        <td>@Model.userid</td>
+        <td>@Model.name</td>
+        <td>@Model.phonenumber</td>
+        <td>@Model.emailaddress</td>
+        <td><a asp-controller="home" asp-action="LoadAccounts">View</a></td>
+
+    </tr>
+</table>
+
+
+<a asp-controller="customer" asp-action="logout">Logout</a>

@@ -1,8 +1,11 @@
-﻿
+﻿@inject IHttpContextAccessor _contextAccessor
 @model Account
 <h3>Transaction Completed</h3>
 
 <div>Your new balance is $@Model.balance</div>
+@{
+    var id = _contextAccessor.HttpContext.Session.GetInt32("userid");
 
+}
 
-<a asp-controller="home" asp-action="Dashboard" accesskey="">Dashboard</a>     <a asp-controller="customer" asp-action="logout">Logout</a>
+<a href="/Account/ViewAccounts/@id">Back to Accounts</a>     <a asp-controller="customer" asp-action="logout">Logout</a>

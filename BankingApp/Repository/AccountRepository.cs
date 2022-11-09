@@ -27,7 +27,7 @@ namespace BankingApp.Repository
             throw new NotImplementedException();
         }
 
-        public void Deposit(int amount, int testing)
+        public void Deposit(decimal amount, int testing)
         {
             _conn.Execute("UPDATE account SET balance = balance + @amount WHERE accountid = @accountid;",
                 new { amount = amount, accountid = testing });
@@ -42,9 +42,10 @@ namespace BankingApp.Repository
             return account;
         }
 
-        public int Withdraw(int withdraw, int accountid)
+        public void Withdraw(decimal amount, int testing)
         {
-            throw new NotImplementedException();
+            _conn.Execute("UPDATE account SET balance = balance - @amount WHERE accountid = @accountid;",
+                new { amount = amount, accountid = testing });
         }
 
     }

@@ -25,7 +25,26 @@ namespace BankingApp.Controllers
             return View();  
         }
 
+        public IActionResult Dashboard(Customer customer)
+        {
+            _contextAccessor.HttpContext.Session.SetInt32("userid", customer.userid);
+            var userLogin = _contextAccessor.HttpContext.Session.GetString("login");
+            var userPassword = _contextAccessor.HttpContext.Session.GetString("password");
+            Console.WriteLine($"This is the login {userLogin}");
+            Console.WriteLine($"This is the password {userPassword}");
 
+            if (customer == null)
+            {
+                Console.WriteLine($"This is the login 2 {userLogin}");
+                Console.WriteLine($"This is the password 2 {userPassword}");
+                var cust = new Customer();
+                cust = repo.GetCustomer(userLogin, userPassword);
+                return View(cust);
+            }
+
+
+            return View(customer);
+        }
 
         [HttpGet]
         public IActionResult Login()
@@ -59,13 +78,7 @@ namespace BankingApp.Controllers
             var test = repo.GetCustomer(userLogin, userPassword).ToJson();
             
 
-            return RedirectToAction("Dashboard", "Home", customer);
-        }
-
-        public IActionResult Overview()
-        {
-            
-            return View();
+            return RedirectToAction("Dashboard", "Customer", customer);
         }
         public IActionResult Logout()
         {
@@ -74,12 +87,31 @@ namespace BankingApp.Controllers
         public IActionResult Register(Customer customerToCreate)
         {
             var newCustomer = repo.AddCustomer(customerToCreate);
+
             return View(newCustomer);
         }
         public IActionResult RegisterCustomerToDatabase(Customer customerToCreate)
         {
             repo.CreateCustomer(customerToCreate);
-            return RedirectToAction("Index");
+            TempData["AlertMessage"] = "Customer created successfully... Login to view your accounts.";
+            return RedirectToAction("Login");
+        }
+
+        public IActionResult UpdateCustomer(Customer customerToUpdate)
+        {
+            string userLogin = _contextAccessor.HttpContext.Session.GetString("login");
+            string userPassword = _contextAccessor.HttpContext.Session.GetString("password");
+            var customer = repo.GetCustomer(userLogin, userPassword);
+            repo.UpdateCustomer(customer);
+            return View(customer);
+        }
+
+        public IActionResult UpdateCustomerToDatabase(Customer customerToUpdate)
+        {
+            
+            repo.UpdateCustomer(customerToUpdate);
+            TempData["Alert"] = " Info updated successfully... ";
+            return RedirectToAction("Dashboard", "Customer", customerToUpdate);
         }
     }
 

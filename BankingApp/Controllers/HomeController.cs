@@ -21,18 +21,7 @@ namespace BankingApp.Controllers
             return View();
         }
 
-        public IActionResult Dashboard(Customer customer)
-        {
-            _contextAccessor.HttpContext.Session.SetInt32("userid", customer.userid);
-            
-            if(customer == null)
-            {
-                customer = 
-            }
 
-
-            return View(customer);
-        }
         public IActionResult LoadAccounts()
         {
             var id = _contextAccessor.HttpContext.Session.GetInt32("userid");
