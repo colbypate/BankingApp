@@ -113,6 +113,18 @@ namespace BankingApp.Controllers
             TempData["Alert"] = " Info updated successfully... ";
             return RedirectToAction("Dashboard", "Customer", customerToUpdate);
         }
+
+        public IActionResult CreateAccount()
+        {
+
+            return View();
+        }
+        public IActionResult CreateAccountToDatabase(Account account)
+        {
+            var newAcc = repo.CreateAccount(account);
+            var id = newAcc.userid;
+            return RedirectToAction("ViewAccounts", "Account", id);
+        }
     }
 
 }

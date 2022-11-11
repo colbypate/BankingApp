@@ -1,0 +1,23 @@
+﻿@inject IHttpContextAccessor _contextAccessor
+@model Account
+@{
+    var userID = _contextAccessor.HttpContext.Session.GetInt32("userid");
+    }
+<h2>Select account type...</h2>
+@using (Html.BeginForm("CreateAccountToDatabase", "Customer", "Post"))
+{
+    <input asp-for="userid" type="hidden" value="@userID" />
+    <input asp-for="accountid" type="hidden" value="" />
+
+    <form method="post" asp-action="CreateAccountToDatabase" asp-controller="Customer">
+
+        <table class="table-bordered">
+            <td>
+                <input type="radio"  id="Savings" name="accountType" value="Savings" />Savings<br />
+                <input type="radio"  id="Checking" name="accountType" value="Checking" />Checking<br />
+                <input id="createaccount" type="submit" value="Create Account" class="btn btn-primary" />
+            </td>
+        </table>
+    </form>
+
+}

@@ -1,9 +1,13 @@
 ﻿using BankingApp.Models;
 using BankingApp.Models.ViewModels;
 using Dapper;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using NuGet.Protocol.Plugins;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Security.Principal;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BankingApp.Repository
 {
@@ -18,13 +22,9 @@ namespace BankingApp.Repository
         {
             var account = new Account();
             account = _conn.QuerySingle<Account>("SELECT * FROM account where accountid = @accountid;",
-        new { accountid = accountid });
+                new { accountid = accountid });
             
             return account;
-        }
-        public Account CreateAccount(Account account)
-        {
-            throw new NotImplementedException();
         }
 
         public void Deposit(decimal amount, int testing)

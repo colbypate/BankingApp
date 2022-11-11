@@ -10,6 +10,8 @@ namespace BankingApp.Repository
         public void CreateCustomer (Customer customerToCreate);
         public Customer AddCustomer (Customer customer);
         public void UpdateCustomer (Customer customer);
+        public Account CreateAccount(Account account);
+
     }
 
 }

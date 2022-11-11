@@ -1,7 +1,14 @@
 ﻿@inject IHttpContextAccessor _contextAccessor
 @model IEnumerable<Account>
-@*<h2>@_contextAccessor.HttpContext.Session.GetString("")</h2>
-*@<h3>Personal Info</h3>
+<h3>Bank Accounts</h3>
+<style>
+    h5 {
+        text-align: right;
+    }
+</style>
+<h5>
+    <form asp-action="CreateAccount" asp-controller="Customer"><input type="submit" value="Create Account" /></form>
+</h5>
 <table class="table">
     <tr>
         <th>Account ID</th>
@@ -12,12 +19,6 @@
     {
         <tr>
             <td><form method="post" asp-controller="Account" asp-action="ChosenAccount"><input type="submit" value="@account.accountid" name="testing" /></form></td>
-            @{
-                //_contextAccessor.HttpContext.Session.SetInt32("accountid", account.accountid);
-
-            }
-            @*<td><a href="/Account/Transfer/@account.accountid"> @account.accountid</a></td>*@
-            @*<td><a id="@account.accountid" asp-controller="account" asp-action="Transfer">@account.accountid</a></td>*@
             <td>@account.accounttype</td>
             <td>$@account.balance</td>
 
