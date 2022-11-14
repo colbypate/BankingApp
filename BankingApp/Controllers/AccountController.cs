@@ -78,6 +78,18 @@ namespace BankingApp.Controllers
 
             return RedirectToAction("Transfer", "Account", new { @accountid = accID});
         }
+
+        public IActionResult CreateAccount()
+        {
+
+            return View();
+        }
+        public IActionResult CreateAccountToDatabase(Account account)
+        {
+            var newAcc = repo.CreateAccount(account);
+            var id = newAcc.userid;
+            return RedirectToAction("ViewAccounts", "Account", new { id = id });
+        }
     }
 }
 //return RedirectToAction("Dashboard", "Home", customer);     NEED to implement this to my transfer so that i can have the variable 

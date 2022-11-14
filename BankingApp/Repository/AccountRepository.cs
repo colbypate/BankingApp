@@ -47,6 +47,31 @@ namespace BankingApp.Repository
             _conn.Execute("UPDATE account SET balance = balance - @amount WHERE accountid = @accountid;",
                 new { amount = amount, accountid = testing });
         }
+        public Account CreateAccount(Account account)
+        {
+            var accountToCreate = new Account();
+            _conn.Execute("insert into account (userid, accounttype, balance, accountid) values (@userid, @accounttype, @balance, @accountid);",
+                new { userid = account.userid, accounttype = account.accounttype, balance = accountToCreate.balance, accountid = 0 });
+            Random rnd = new Random();
+
+            var notAvailable = _conn.Query("select accountid from account where userid = @userid;",
+                new { userid = account.userid });
+            string num = rnd.Next(0, 98).ToString();
+            var n = account.userid.ToString() + num;
+            int accID = int.Parse(n);
+            var tryNum = _conn.Query("select accountid from account where accountid = @accountid;",
+                new { accountid = accID });
+            if (notAvailable == tryNum)
+            {
+                accID = accID + 1;
+            }
+            _conn.Execute("update account set accountid = @accountid where accountid = '0';",
+                new { accountid = accID });
+            var newAcc = _conn.QuerySingle<Account>("select * from account where @accountid = accountid;",
+                    new { accountid = accID });
+            accID = accID + 1;
+            return newAcc;
+        }
 
     }
 }

@@ -4,12 +4,12 @@
     var userID = _contextAccessor.HttpContext.Session.GetInt32("userid");
     }
 <h2>Select account type...</h2>
-@using (Html.BeginForm("CreateAccountToDatabase", "Customer", "Post"))
+@using (Html.BeginForm("CreateAccountToDatabase", "Account", "Post"))
 {
     <input asp-for="userid" type="hidden" value="@userID" />
     <input asp-for="accountid" type="hidden" value="" />
 
-    <form method="post" asp-action="CreateAccountToDatabase" asp-controller="Customer">
+    <form method="post" asp-action="CreateAccountToDatabase" asp-controller="Account">
 
         <table class="table-bordered">
             <td>
