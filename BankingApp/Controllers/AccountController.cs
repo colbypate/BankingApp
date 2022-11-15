@@ -10,6 +10,7 @@ namespace BankingApp.Controllers
 {
     public class AccountController : Controller
     {
+        //connects to my Account Interface allowing us to call those methods and allows us to create session variables
         private readonly IAccountRepository repo;
         private readonly IHttpContextAccessor _contextAccessor;
         public AccountController(IHttpContextAccessor contextAccessor, IAccountRepository repo)
@@ -21,12 +22,7 @@ namespace BankingApp.Controllers
         [HttpGet]
         public IActionResult Transfer(int accountid)
         {
-            //_contextAccessor.HttpContext.Session.SetInt32("accountid", accountid);
-            //var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
-            //var acc = repo.GetAccountByID(accID);
 
-            //Console.WriteLine(accID);
-            //Console.WriteLine(acc);
             var accID = _contextAccessor.HttpContext.Session.GetInt32("accountid");
             var acc = repo.GetAccountByID((int)accID);
 
@@ -92,4 +88,3 @@ namespace BankingApp.Controllers
         }
     }
 }
-//return RedirectToAction("Dashboard", "Home", customer);     NEED to implement this to my transfer so that i can have the variable 

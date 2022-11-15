@@ -4,11 +4,11 @@ using MySql.Data.MySqlClient;
 using System.Data;
 
 
-//allows my session variables to be used
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 //allows my session variables to be used
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();

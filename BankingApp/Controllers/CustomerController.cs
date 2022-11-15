@@ -10,7 +10,7 @@ namespace BankingApp.Controllers
 {
     public class CustomerController : Controller
     {
-
+        //connects to my Customer Interface allowing us to call those methods and allows us to create session variables
         private readonly ICustomerRepository repo;
         private readonly IHttpContextAccessor _contextAccessor;
         public CustomerController(IHttpContextAccessor contextAccessor, ICustomerRepository repo)
