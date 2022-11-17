@@ -17,7 +17,7 @@
     </tr>
     @foreach(var account in Model)
     {
-        <tr>
+        <tr id="txt">
             <td><form method="post" asp-controller="Account" asp-action="ChosenAccount"><input type="submit" value="@account.accountid" name="testing" /></form></td>
             <td>@account.accounttype</td>
             <td>$@account.balance</td>

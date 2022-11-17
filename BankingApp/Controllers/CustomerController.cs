@@ -82,7 +82,7 @@ namespace BankingApp.Controllers
         }
         public IActionResult Logout()
         {
-            return View();
+            return View("Login");
         }
         public IActionResult Register(Customer customerToCreate)
         {

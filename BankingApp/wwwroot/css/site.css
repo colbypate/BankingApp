@@ -4,7 +4,7 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
@@ -15,4 +15,16 @@ html {
 
 body {
     margin-bottom: 60px;
+/*    min-height: 75rem;
+    padding-top: 4.5rem;*/
+}
+
+#home {
+    background-image: url('../Images/TechBackgroundLight.jpg');
+    background-size: cover;
+    background-position:center;
+}
+
+#txt {
+    background-color: white;
 }
