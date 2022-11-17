@@ -26,5 +26,6 @@ body {
 }
 
 #txt {
-    background-color: white;
+    background-color: lightgrey;
+    background-blend-mode: luminosity;
 }
